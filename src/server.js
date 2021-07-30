@@ -1,16 +1,15 @@
 import express from "express";
 import mongoose from "mongoose";
-import fileUpload from "express-fileupload";
 import * as fs from "fs";
 
 import * as constant from "./constants.js";
-import router from "./router.js";
+import router from "./models/routers.js";
+import createDB from "./initialize/initialize.js";
 
 const app = express();
 
 app.use(express.json());
-app.use(fileUpload({}));
-app.use("/api", router);
+app.use(router);
 
 async function startApp() {
   try {
@@ -23,6 +22,8 @@ async function startApp() {
       useNewUrlParser: true,
       useFindAndModify: true,
     });
+
+    await createDB();
     app.listen(constant.PORT, () =>
       console.log("SERVER STARTED ON PORT " + constant.PORT)
     );

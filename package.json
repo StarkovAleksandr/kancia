@@ -2,14 +2,16 @@
   "name": "kancia",
   "version": "1.0.0",
   "description": "suffering in lithuanian language",
-  "main": "server.js",
+  "main": "src/server.js",
+  "type": "module",
   "scripts": {
-    "start": "node.js",
-    "dev": "nodemon server.js"
+    "start": "node src/node.js",
+    "dev": "nodemon src/server.js"
   },
   "author": "Aleksandr",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "express": "^4.17.1",
     "mongoose": "^5.13.4"
   },
