@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const Photo = new mongoose.Schema({
   albumId: { type: Number, required: true },
@@ -8,4 +8,4 @@ const Photo = new mongoose.Schema({
   thumbnailUrl: { type: String, required: true },
 });
 
-export default mongoose.model("Photo", Photo);
+export default mongoose.model('Photo', Photo);

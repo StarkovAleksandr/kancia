@@ -1,21 +1,17 @@
-import express from "express";
-import mongoose from "mongoose";
-import * as fs from "fs";
+import express from 'express';
+import mongoose from 'mongoose';
 
-import * as constant from "./constants.js";
-import router from "./models/routers.js";
-import createDB from "./initialize/initialize.js";
-
-const app = express();
-
-app.use(express.json());
-app.use(router);
+import * as constant from './constants.js';
+import fillingDB from './initialize/initialize.js';
+import routing from './modules/routers.js';
 
 async function startApp() {
   try {
-    if (!fs.existsSync("static")) {
-      fs.mkdirSync("static");
-    }
+    const app = express();
+
+    app.use(express.json());
+
+    routing(app);
 
     await mongoose.connect(constant.DB_URL, {
       useUnifiedTopology: true,
@@ -23,9 +19,10 @@ async function startApp() {
       useFindAndModify: true,
     });
 
-    await createDB();
+    await fillingDB();
+
     app.listen(constant.PORT, () =>
-      console.log("SERVER STARTED ON PORT " + constant.PORT)
+      console.log('SERVER STARTED ON PORT ' + constant.PORT)
     );
   } catch (err) {
     console.log(err);

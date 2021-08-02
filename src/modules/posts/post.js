@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const Post = new mongoose.Schema({
   userId: { type: Number, required: true },
@@ -7,4 +7,4 @@ const Post = new mongoose.Schema({
   body: { type: String, required: true },
 });
 
-export default mongoose.model("Post", Post);
+export default mongoose.model('Post', Post);

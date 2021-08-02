@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const Comment = new mongoose.Schema({
   postId: { type: Number, required: true },
@@ -8,4 +8,4 @@ const Comment = new mongoose.Schema({
   body: { type: String, required: true },
 });
 
-export default mongoose.model("Comment", Comment);
+export default mongoose.model('Comment', Comment);

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const Album = new mongoose.Schema({
   userId: { type: Number, required: true },
@@ -6,4 +6,4 @@ const Album = new mongoose.Schema({
   title: { type: String, required: true },
 });
 
-export default mongoose.model("Album", Album);
+export default mongoose.model('Album', Album);
