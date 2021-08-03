@@ -10,7 +10,8 @@ class AlbumService {
   }
 
   async getAll() {
-    const albums = await Album.find();
+    const albums = await Album.find().populate('userId').exec();
+
     return albums;
   }
 
@@ -18,9 +19,12 @@ class AlbumService {
     if (!id) {
       throw new Error('ID not request');
     }
-    const album = await Album.findById(id);
 
-    return album;
+    return Album.findById(id);
+  }
+
+  async findOneById(id) {
+    return Album.findOne({ id });
   }
 
   async update(album) {

@@ -22,6 +22,10 @@ class PostService {
     return post;
   }
 
+  async findOneById(id) {
+    return Post.findOne({ id });
+  }
+
   async update(post) {
     if (!post._id) {
       throw new Error('ID not request');

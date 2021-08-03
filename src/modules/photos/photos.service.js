@@ -24,6 +24,10 @@ class PhotoService {
     return photo;
   }
 
+  async findOneById(id) {
+    return Photo.findOne({ id });
+  }
+
   async update(photo) {
     if (!photo._id) {
       throw new Error('ID not request');

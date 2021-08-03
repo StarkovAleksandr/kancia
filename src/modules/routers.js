@@ -5,17 +5,6 @@ import routerPosts from './posts/posts.router.js';
 import routerTodos from './todos/todos.router.js';
 import routerUsers from './users/users.router.js';
 
-// routers = {
-//   routerAlbums,
-//   routerComments,
-//   routerPhotos,
-//   routerPosts,
-//   routerTodos,
-//   routerUsers,
-// };
-
-// router.forEach(currentElem => app.use(currentElem));
-
 const routers = [
   routerAlbums,
   routerComments,

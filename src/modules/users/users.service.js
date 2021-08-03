@@ -24,6 +24,10 @@ class UserService {
     return user;
   }
 
+  async findOneById(id) {
+    return User.findOne({ id });
+  }
+
   async update(user) {
     if (!user._id) {
       throw new Error('ID not request');

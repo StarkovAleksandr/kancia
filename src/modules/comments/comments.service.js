@@ -24,6 +24,10 @@ class CommentService {
     return comment;
   }
 
+  async findOneById(id) {
+    return Comment.findOne({ id });
+  }
+
   async update(comment) {
     if (!comment._id) {
       throw new Error('ID not request');

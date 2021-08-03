@@ -24,6 +24,10 @@ class TodoService {
     return todo;
   }
 
+  async findOneById(id) {
+    return Todo.findOne({ id });
+  }
+
   async update(todo) {
     if (!todo._id) {
       throw new Error('ID not request');

@@ -5,6 +5,9 @@ class AlbumController {
     try {
       const album = await AlbumService.create(req.body);
 
+      // album._id = req.body.id;
+      // await album.save();
+
       res.status(200).json(album);
     } catch (err) {
       res.status(500).json(err);
