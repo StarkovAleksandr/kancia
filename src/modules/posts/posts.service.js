@@ -8,7 +8,7 @@ class PostService {
   }
 
   async getAll() {
-    const posts = await Post.find();
+    const posts = await Post.find().exec();
 
     return posts;
   }
@@ -17,13 +17,13 @@ class PostService {
     if (!id) {
       throw new Error('ID not request');
     }
-    const post = await Post.findById(id);
+    const post = await Post.findById(id).populate('user').exec();
 
     return post;
   }
 
   async findOneById(id) {
-    return Post.findOne({ id });
+    return Post.findOne({ id }).exec();
   }
 
   async update(post) {

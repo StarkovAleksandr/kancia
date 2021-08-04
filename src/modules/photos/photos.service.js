@@ -10,7 +10,7 @@ class PhotoService {
   }
 
   async getAll() {
-    const photos = await Photo.find();
+    const photos = await Photo.find().exec();
 
     return photos;
   }
@@ -19,13 +19,13 @@ class PhotoService {
     if (!id) {
       throw new Error('ID not request');
     }
-    const photo = await Photo.findById(id);
+    const photo = await Photo.findById(id).populate('album').exec();
 
     return photo;
   }
 
   async findOneById(id) {
-    return Photo.findOne({ id });
+    return Photo.findOne({ id }).exec();
   }
 
   async update(photo) {

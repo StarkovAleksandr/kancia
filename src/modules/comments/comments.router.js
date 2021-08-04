@@ -4,14 +4,14 @@ import commentsControllers from './comments.controller.js';
 
 const router = new Router();
 
-router.post(`/albums`, commentsControllers.create);
+router.post(`/comments`, commentsControllers.create);
 
-router.get(`/albums`, commentsControllers.getAll);
+router.get(`/comments`, commentsControllers.getAll);
 
-router.get(`/albums/:id`, commentsControllers.getOne);
+router.get(`/comments/:id`, commentsControllers.getOne);
 
-router.put(`/albums/:id`, commentsControllers.update);
+router.put(`/comments/:id`, commentsControllers.update);
 
-router.delete(`/albums/:id`, commentsControllers.delete);
+router.delete(`/comments/:id`, commentsControllers.delete);
 
 export default router;

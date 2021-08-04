@@ -10,7 +10,7 @@ class TodoService {
   }
 
   async getAll() {
-    const todos = await Todo.find();
+    const todos = await Todo.find().exec();
 
     return todos;
   }
@@ -19,13 +19,13 @@ class TodoService {
     if (!id) {
       throw new Error('ID not request');
     }
-    const todo = await Todo.findById(id);
+    const todo = await Todo.findById(id).populate('user').exec();
 
     return todo;
   }
 
   async findOneById(id) {
-    return Todo.findOne({ id });
+    return Todo.findOne({ id }).exec();
   }
 
   async update(todo) {

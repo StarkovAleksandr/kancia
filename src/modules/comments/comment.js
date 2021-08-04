@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const Comment = new mongoose.Schema({
-  postId: { type: Number, required: true },
+  post: { type: mongoose.Schema.Types.Number, ref: 'Post' },
   _id: { type: Number, required: true },
   name: { type: String, required: true },
   email: { type: String, required: true },

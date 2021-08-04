@@ -10,7 +10,7 @@ class CommentService {
   }
 
   async getAll() {
-    const comments = await Comment.find();
+    const comments = await Comment.find().exec();
 
     return comments;
   }
@@ -19,13 +19,13 @@ class CommentService {
     if (!id) {
       throw new Error('ID not request');
     }
-    const comment = await Comment.findById(id);
+    const comment = await Comment.findById(id).populate('post').exec();
 
     return comment;
   }
 
   async findOneById(id) {
-    return Comment.findOne({ id });
+    return Comment.findOne({ id }).exec();
   }
 
   async update(comment) {

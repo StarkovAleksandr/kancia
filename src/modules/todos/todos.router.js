@@ -4,14 +4,14 @@ import todosControllers from './todos.controller.js';
 
 const router = new Router();
 
-router.post(`/albums`, todosControllers.create);
+router.post(`/todos`, todosControllers.create);
 
-router.get(`/albums`, todosControllers.getAll);
+router.get(`/todos`, todosControllers.getAll);
 
-router.get(`/albums/:id`, todosControllers.getOne);
+router.get(`/todos/:id`, todosControllers.getOne);
 
-router.put(`/albums/:id`, todosControllers.update);
+router.put(`/todos/:id`, todosControllers.update);
 
-router.delete(`/albums/:id`, todosControllers.delete);
+router.delete(`/todos/:id`, todosControllers.delete);
 
 export default router;

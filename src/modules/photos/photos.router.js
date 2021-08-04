@@ -4,14 +4,14 @@ import photosControllers from './photos.controller.js';
 
 const router = new Router();
 
-router.post(`/albums`, photosControllers.create);
+router.post(`/photos`, photosControllers.create);
 
-router.get(`/albums`, photosControllers.getAll);
+router.get(`/photos`, photosControllers.getAll);
 
-router.get(`/albums/:id`, photosControllers.getOne);
+router.get(`/photos/:id`, photosControllers.getOne);
 
-router.put(`/albums/:id`, photosControllers.update);
+router.put(`/photos/:id`, photosControllers.update);
 
-router.delete(`/albums/:id`, photosControllers.delete);
+router.delete(`/photos/:id`, photosControllers.delete);
 
 export default router;

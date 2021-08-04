@@ -4,14 +4,14 @@ import usersControllers from './users.controller.js';
 
 const router = new Router();
 
-router.post(`/albums`, usersControllers.create);
+router.post(`/users`, usersControllers.create);
 
-router.get(`/albums`, usersControllers.getAll);
+router.get(`/users`, usersControllers.getAll);
 
-router.get(`/albums/:id`, usersControllers.getOne);
+router.get(`/users/:id`, usersControllers.getOne);
 
-router.put(`/albums/:id`, usersControllers.update);
+router.put(`/users/:id`, usersControllers.update);
 
-router.delete(`/albums/:id`, usersControllers.delete);
+router.delete(`/users/:id`, usersControllers.delete);
 
 export default router;

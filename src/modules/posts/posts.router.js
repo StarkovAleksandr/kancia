@@ -4,14 +4,14 @@ import postsControllers from './posts.controller.js';
 
 const router = new Router();
 
-router.post(`/albums`, postsControllers.create);
+router.post(`/posts`, postsControllers.create);
 
-router.get(`/albums`, postsControllers.getAll);
+router.get(`/posts`, postsControllers.getAll);
 
-router.get(`/albums/:id`, postsControllers.getOne);
+router.get(`/posts/:id`, postsControllers.getOne);
 
-router.put(`/albums/:id`, postsControllers.update);
+router.put(`/posts/:id`, postsControllers.update);
 
-router.delete(`/albums/:id`, postsControllers.delete);
+router.delete(`/posts/:id`, postsControllers.delete);
 
 export default router;

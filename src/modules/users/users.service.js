@@ -10,7 +10,7 @@ class UserService {
   }
 
   async getAll() {
-    const users = await User.find();
+    const users = await User.find().exec();
 
     return users;
   }
@@ -19,13 +19,13 @@ class UserService {
     if (!id) {
       throw new Error('ID not request');
     }
-    const user = await User.findById(id);
+    const user = await User.findById(id).exec();
 
     return user;
   }
 
   async findOneById(id) {
-    return User.findOne({ id });
+    return User.findOne({ id }).exec();
   }
 
   async update(user) {
