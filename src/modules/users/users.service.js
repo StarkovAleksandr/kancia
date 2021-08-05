@@ -1,4 +1,7 @@
 import User from './user.js';
+import albumService from '../albums/albums.service.js';
+import postService from '../posts/posts.service.js';
+import todoService from '../todos/todos.service.js';
 
 class UserService {
   async create(user) {
@@ -43,9 +46,11 @@ class UserService {
     if (!id) {
       throw new Error('ID not request');
     }
-    const user = await User.findByIdAndDelete(id);
+    await User.findByIdAndDelete(id);
 
-    return user;
+    await albumService.deleteAllByUserId(id);
+    await postService.deleteAllByUserId(id);
+    await todoService.deleteAllByUserId(id);
   }
 }
 

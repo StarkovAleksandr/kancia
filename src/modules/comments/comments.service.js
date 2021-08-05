@@ -47,9 +47,15 @@ class CommentService {
     if (!id) {
       throw new Error('ID not request');
     }
-    const comment = await Comment.findByIdAndDelete(id);
+    await Comment.findByIdAndDelete(id);
+  }
 
-    return comment;
+  async deleteAllByPostId(id) {
+    const data = await Comment.find({ post: id }).exec();
+
+    for (const { _id } of data) {
+      await this.delete(_id);
+    }
   }
 }
 

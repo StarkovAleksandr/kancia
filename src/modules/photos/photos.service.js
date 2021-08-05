@@ -43,9 +43,15 @@ class PhotoService {
     if (!id) {
       throw new Error('ID not request');
     }
-    const photo = await Photo.findByIdAndDelete(id);
+    await Photo.findByIdAndDelete(id);
+  }
 
-    return photo;
+  async deleteAllByAlbumId(id) {
+    const data = await Photo.find({ album: id }).exec();
+
+    for (const { _id } of data) {
+      await this.delete(_id);
+    }
   }
 }
 

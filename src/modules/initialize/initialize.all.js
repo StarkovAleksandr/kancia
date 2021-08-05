@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-import AlbumService from '../albums/albums.service.js';
-import CommentsSrvice from '../comments/comments.service.js';
-import PhotosSrvice from '../photos/photos.service.js';
-import PostsSrvice from '../posts/posts.service.js';
-import TodosSrvice from '../todos/todos.service.js';
-import UsersSrvice from '../users/users.service.js';
+import albumService from '../albums/albums.service.js';
+import commentsSrvice from '../comments/comments.service.js';
+import photosSrvice from '../photos/photos.service.js';
+import postsSrvice from '../posts/posts.service.js';
+import todosSrvice from '../todos/todos.service.js';
+import usersSrvice from '../users/users.service.js';
 
 const getApiUrl = (str) => `https://jsonplaceholder.typicode.com/${str}`;
 
@@ -22,11 +22,11 @@ class InitializerService {
   async #initializeAlbums() {
     const { data } = await axios.get(getApiUrl('albums'));
 
-    for (let { id, userId, ...album } of [...data.slice(0, 10)]) {
-      const exist = await AlbumService.getOne(id);
+    for (let { id, userId, ...album } of data.splice(0, 10)) {
+      const exist = await albumService.getOne(id);
 
       if (!exist)
-        await AlbumService.create({ ...album, _id: id, user: userId });
+        await albumService.create({ ...album, _id: id, user: userId });
     }
     console.log('Album init COMPLETE 😨');
   }
@@ -34,11 +34,11 @@ class InitializerService {
   async #initializeComments() {
     const { data } = await axios.get(getApiUrl('comments'));
 
-    for (let { id, postId, ...comment } of [...data.slice(0, 10)]) {
-      const exist = await CommentsSrvice.getOne(id);
+    for (let { id, postId, ...comment } of data.splice(0, 10)) {
+      const exist = await commentsSrvice.getOne(id);
 
       if (!exist)
-        await CommentsSrvice.create({ ...comment, _id: id, post: postId });
+        await commentsSrvice.create({ ...comment, _id: id, post: postId });
     }
     console.log('Comments init COMPLETE 😱');
   }
@@ -46,11 +46,11 @@ class InitializerService {
   async #initializePhotos() {
     const { data } = await axios.get(getApiUrl('photos'));
 
-    for (let { id, albumId, ...photo } of [...data.slice(0, 10)]) {
-      const exist = await PhotosSrvice.getOne(id);
+    for (let { id, albumId, ...photo } of data.splice(0, 10)) {
+      const exist = await photosSrvice.getOne(id);
 
       if (!exist)
-        await PhotosSrvice.create({ ...photo, _id: id, album: albumId });
+        await photosSrvice.create({ ...photo, _id: id, album: albumId });
     }
     console.log('Photos init COMPLETE 🤔');
   }
@@ -58,10 +58,10 @@ class InitializerService {
   async #initializePosts() {
     const { data } = await axios.get(getApiUrl('posts'));
 
-    for (let { id, userId, ...post } of [...data.slice(0, 10)]) {
-      const exist = await PostsSrvice.getOne(id);
+    for (let { id, userId, ...post } of data.splice(0, 10)) {
+      const exist = await postsSrvice.getOne(id);
 
-      if (!exist) await PostsSrvice.create({ ...post, _id: id, user: userId });
+      if (!exist) await postsSrvice.create({ ...post, _id: id, user: userId });
     }
     console.log('Posts init COMPLETE 😐');
   }
@@ -69,10 +69,10 @@ class InitializerService {
   async #initializeTodos() {
     const { data } = await axios.get(getApiUrl('todos'));
 
-    for (let { id, userId, ...todo } of [...data.slice(0, 10)]) {
-      const exist = await TodosSrvice.getOne(id);
+    for (let { id, userId, ...todo } of data.splice(0, 10)) {
+      const exist = await todosSrvice.getOne(id);
 
-      if (!exist) await TodosSrvice.create({ ...todo, _id: id, user: userId });
+      if (!exist) await todosSrvice.create({ ...todo, _id: id, user: userId });
     }
     console.log('Todos init COMPLETE 😒');
   }
@@ -80,10 +80,10 @@ class InitializerService {
   async #initializeUsers() {
     const { data } = await axios.get(getApiUrl('users'));
 
-    for (let { id, ...user } of [...data.slice(0, 10)]) {
-      const exist = await UsersSrvice.getOne(id);
+    for (let { id, ...user } of data.splice(0, 10)) {
+      const exist = await usersSrvice.getOne(id);
 
-      if (!exist) await UsersSrvice.create({ ...user, _id: id });
+      if (!exist) await usersSrvice.create({ ...user, _id: id });
     }
     console.log('Users init COMPLETE 😕');
   }

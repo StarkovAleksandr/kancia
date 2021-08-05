@@ -43,9 +43,15 @@ class TodoService {
     if (!id) {
       throw new Error('ID not request');
     }
-    const todo = await Todo.findByIdAndDelete(id);
+    await Todo.findByIdAndDelete(id);
+  }
 
-    return todo;
+  async deleteAllByUserId(id) {
+    const data = await Todo.find({ user: id }).exec();
+
+    for (const { _id } of data) {
+      await this.delete(_id);
+    }
   }
 }
 

@@ -1,9 +1,9 @@
-import PhotoService from './photos.service.js';
+import photoService from './photos.service.js';
 
 class PhotoController {
   async create(req, res) {
     try {
-      const photo = await PhotoService.create(req.body);
+      const photo = await photoService.create(req.body);
 
       res.status(200).json(photo);
     } catch (err) {
@@ -13,7 +13,7 @@ class PhotoController {
 
   async getAll(_, res) {
     try {
-      const photos = await PhotoService.getAll();
+      const photos = await photoService.getAll();
 
       return res.json(photos);
     } catch (err) {
@@ -23,7 +23,7 @@ class PhotoController {
 
   async getOne(req, res) {
     try {
-      const photo = await PhotoService.getOne(req.params.id);
+      const photo = await photoService.getOne(req.params.id);
 
       return res.json(photo);
     } catch (err) {
@@ -33,7 +33,7 @@ class PhotoController {
 
   async update(req, res) {
     try {
-      const updatedPhoto = await PhotoService.update(req.body);
+      const updatedPhoto = await photoService.update(req.body);
 
       return res.json(updatedPhoto);
     } catch (err) {
@@ -43,9 +43,9 @@ class PhotoController {
 
   async delete(req, res) {
     try {
-      const photo = await PhotoService.delete(req.params.id);
+      const photo = await photoService.delete(req.params.id);
 
-      return res.json(photo);
+      return res.send(true);
     } catch (err) {
       res.status(500).json(err);
     }

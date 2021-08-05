@@ -1,9 +1,9 @@
-import CommentService from './comments.service.js';
+import commentService from './comments.service.js';
 
 class CommentContriller {
   async create(req, res) {
     try {
-      const comment = await CommentService.create(req.body);
+      const comment = await commentService.create(req.body);
 
       res.status(200).json(comment);
     } catch (err) {
@@ -13,7 +13,7 @@ class CommentContriller {
 
   async getAll(_, res) {
     try {
-      const comments = await CommentService.getAll();
+      const comments = await commentService.getAll();
 
       return res.json(comments);
     } catch (err) {
@@ -23,7 +23,7 @@ class CommentContriller {
 
   async getOne(req, res) {
     try {
-      const comment = await CommentService.getOne(req.params.id);
+      const comment = await commentService.getOne(req.params.id);
 
       return res.json(comment);
     } catch (err) {
@@ -33,7 +33,7 @@ class CommentContriller {
 
   async update(req, res) {
     try {
-      const updatedComment = await CommentService.update(req.body);
+      const updatedComment = await commentService.update(req.body);
 
       return res.json(updatedComment);
     } catch (err) {
@@ -43,9 +43,9 @@ class CommentContriller {
 
   async delete(req, res) {
     try {
-      const comment = await CommentService.delete(req.params.id);
+      const comment = await commentService.delete(req.params.id);
 
-      return res.json(comment);
+      return res.send(true);
     } catch (err) {
       res.status(500).json(err);
     }

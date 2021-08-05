@@ -1,9 +1,9 @@
-import UserService from './users.service.js';
+import userService from './users.service.js';
 
 class UserController {
   async create(req, res) {
     try {
-      const user = await UserService.create(req.body);
+      const user = await userService.create(req.body);
 
       res.status(200).json(user);
     } catch (err) {
@@ -13,7 +13,7 @@ class UserController {
 
   async getAll(_, res) {
     try {
-      const users = await UserService.getAll();
+      const users = await userService.getAll();
 
       return res.json(users);
     } catch (err) {
@@ -23,7 +23,7 @@ class UserController {
 
   async getOne(req, res) {
     try {
-      const user = await UserService.getOne(req.params.id);
+      const user = await userService.getOne(req.params.id);
 
       return res.json(user);
     } catch (err) {
@@ -33,7 +33,7 @@ class UserController {
 
   async update(req, res) {
     try {
-      const updatedUser = await UserService.update(req.body);
+      const updatedUser = await userService.update(req.body);
 
       return res.json(updatedUser);
     } catch (err) {
@@ -43,10 +43,11 @@ class UserController {
 
   async delete(req, res) {
     try {
-      const user = await UserService.delete(req.params.id);
+      const user = await userService.delete(req.params.id);
 
-      return res.json(user);
+      return res.send(true);
     } catch (err) {
+      console.log(err);
       res.status(500).json(err);
     }
   }

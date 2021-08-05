@@ -1,9 +1,9 @@
-import TodoService from './todos.service.js';
+import todoService from './todos.service.js';
 
 class TodoController {
   async create(req, res) {
     try {
-      const todo = await TodoService.create(req.body);
+      const todo = await todoService.create(req.body);
 
       res.status(200).json(todo);
     } catch (err) {
@@ -13,7 +13,7 @@ class TodoController {
 
   async getAll(_, res) {
     try {
-      const todos = await TodoService.getAll();
+      const todos = await todoService.getAll();
 
       return res.json(todos);
     } catch (err) {
@@ -23,7 +23,7 @@ class TodoController {
 
   async getOne(req, res) {
     try {
-      const todo = await TodoService.getOne(req.params.id);
+      const todo = await todoService.getOne(req.params.id);
 
       return res.json(todo);
     } catch (err) {
@@ -33,7 +33,7 @@ class TodoController {
 
   async update(req, res) {
     try {
-      const updatedTodo = await TodoService.update(req.body);
+      const updatedTodo = await todoService.update(req.body);
 
       return res.json(updatedTodo);
     } catch (err) {
@@ -43,9 +43,9 @@ class TodoController {
 
   async delete(req, res) {
     try {
-      const todo = await TodoService.delete(req.params.id);
+      const todo = await todoService.delete(req.params.id);
 
-      return res.json(todo);
+      return res.send(true);
     } catch (err) {
       res.status(500).json(err);
     }

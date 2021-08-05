@@ -1,9 +1,9 @@
-import AlbumService from './albums.service.js';
+import albumService from './albums.service.js';
 
 class AlbumController {
   async create(req, res) {
     try {
-      const album = await AlbumService.create(req.body);
+      const album = await albumService.create(req.body);
 
       res.status(200).json(album);
     } catch (err) {
@@ -13,7 +13,7 @@ class AlbumController {
 
   async getAll(_, res) {
     try {
-      const albums = await AlbumService.getAll();
+      const albums = await albumService.getAll();
 
       return res.json(albums);
     } catch (err) {
@@ -23,7 +23,7 @@ class AlbumController {
 
   async getOne(req, res) {
     try {
-      const album = await AlbumService.getOne(req.params.id);
+      const album = await albumService.getOne(req.params.id);
 
       return res.json(album);
     } catch (err) {
@@ -33,7 +33,7 @@ class AlbumController {
 
   async update(req, res) {
     try {
-      const updatedAlbum = await AlbumService.update(req.body);
+      const updatedAlbum = await albumService.update(req.body);
 
       return res.json(updatedAlbum);
     } catch (err) {
@@ -43,10 +43,11 @@ class AlbumController {
 
   async delete(req, res) {
     try {
-      const album = await AlbumService.delete(req.params.id);
+      const album = await albumService.delete(req.params.id);
 
-      return res.json(album);
+      return res.send(true);
     } catch (err) {
+      console.log(err);
       res.status(500).json(err);
     }
   }

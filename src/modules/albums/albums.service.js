@@ -1,4 +1,5 @@
 import Album from './album.js';
+import photoService from '../photos/photos.service.js';
 
 class AlbumService {
   async create(album) {
@@ -42,9 +43,19 @@ class AlbumService {
     if (!id) {
       throw new Error('ID not request');
     }
-    const album = await Album.findByIdAndDelete(id);
+    await Album.findByIdAndDelete(id);
 
-    return album;
+    await photoService.deleteAllByAlbumId(id);
+  }
+
+  async deleteAllByUserId(id) {
+    const data = await Album.find({ user: id }).exec();
+
+    for (const { _id } of data) {
+      await this.delete(_id);
+
+      await photoService.deleteAllByAlbumId(_id);
+    }
   }
 }
 
