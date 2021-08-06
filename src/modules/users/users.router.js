@@ -1,10 +1,11 @@
 import Router from 'express';
 
 import usersControllers from './users.controller.js';
+import { validation } from './users.validation.js';
 
 const router = new Router();
 
-router.post(`/users`, usersControllers.create);
+router.post(`/users`, (req) => validation(req.body), usersControllers.create);
 
 router.get(`/users`, usersControllers.getAll);
 

@@ -1,10 +1,11 @@
 import Router from 'express';
 
 import photosControllers from './photos.controller.js';
+import { validation } from './photos.validation.js';
 
 const router = new Router();
 
-router.post(`/photos`, photosControllers.create);
+router.post(`/photos`, (req) => validation(req.body), photosControllers.create);
 
 router.get(`/photos`, photosControllers.getAll);
 

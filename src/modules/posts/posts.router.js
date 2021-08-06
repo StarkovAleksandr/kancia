@@ -1,10 +1,11 @@
 import Router from 'express';
 
 import postsControllers from './posts.controller.js';
+import { validation } from './posts.validation.js';
 
 const router = new Router();
 
-router.post(`/posts`, postsControllers.create);
+router.post(`/posts`, (req) => validation(req.body), postsControllers.create);
 
 router.get(`/posts`, postsControllers.getAll);
 

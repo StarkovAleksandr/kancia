@@ -1,10 +1,11 @@
 import Router from 'express';
 
 import todosControllers from './todos.controller.js';
+import { validation } from './todos.validation.js';
 
 const router = new Router();
 
-router.post(`/todos`, todosControllers.create);
+router.post(`/todos`, (req) => validation(req.body), todosControllers.create);
 
 router.get(`/todos`, todosControllers.getAll);
 
