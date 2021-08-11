@@ -1,9 +1,12 @@
 import userService from './users.service.js';
+import { createUserId } from '../../common/id/id.create.js';
 
 class UserController {
   async create(req, res) {
     try {
-      const user = await userService.create(req.body);
+      req.body['_id'] = await createUserId();
+
+      const user = await userService.create({ ...req.body });
 
       res.status(200).json(user);
     } catch (err) {

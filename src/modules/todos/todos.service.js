@@ -10,7 +10,7 @@ class TodoService {
   }
 
   async getAll() {
-    const todos = await Todo.find().exec();
+    const todos = await Todo.find().sort({ _id: 1 }).exec();
 
     return todos;
   }

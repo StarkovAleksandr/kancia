@@ -10,7 +10,7 @@ class PhotoService {
   }
 
   async getAll() {
-    const photos = await Photo.find().exec();
+    const photos = await Photo.find().sort({ _id: 1 }).exec();
 
     return photos;
   }

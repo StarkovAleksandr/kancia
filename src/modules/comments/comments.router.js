@@ -7,16 +7,22 @@ const router = new Router();
 
 router.post(
   `/comments`,
-  (req) => validation(req.body),
+  (req, res, next) => {
+    const result = validation(req.body);
+    if (result === true) {
+      next();
+    } else {
+      console.log('Invalid value');
+
+      res.status(400).send(result);
+    }
+  },
   commentsControllers.create
 );
 
 router.get(`/comments`, commentsControllers.getAll);
-
 router.get(`/comments/:id`, commentsControllers.getOne);
-
 router.put(`/comments/:id`, commentsControllers.update);
-
 router.delete(`/comments/:id`, commentsControllers.delete);
 
 export default router;

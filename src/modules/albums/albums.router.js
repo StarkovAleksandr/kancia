@@ -11,8 +11,11 @@ router.post(
     const result = validation(req.body);
     if (result === true) {
       next();
+    } else {
+      console.log('Invalid value');
+
+      res.status(400).send(result);
     }
-    res.status(400).send(result);
   },
   albumsControllers.create
 );

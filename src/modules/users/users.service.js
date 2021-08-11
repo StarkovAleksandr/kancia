@@ -13,7 +13,7 @@ class UserService {
   }
 
   async getAll() {
-    const users = await User.find().exec();
+    const users = await User.find().sort({ _id: 1 }).exec();
 
     return users;
   }

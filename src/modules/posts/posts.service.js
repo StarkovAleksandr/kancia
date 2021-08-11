@@ -9,7 +9,7 @@ class PostService {
   }
 
   async getAll() {
-    const posts = await Post.find().exec();
+    const posts = await Post.find().sort({ _id: 1 }).exec();
 
     return posts;
   }

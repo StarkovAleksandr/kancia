@@ -10,7 +10,7 @@ class CommentService {
   }
 
   async getAll() {
-    const comments = await Comment.find().exec();
+    const comments = await Comment.find().sort({ _id: 1 }).exec();
 
     return comments;
   }

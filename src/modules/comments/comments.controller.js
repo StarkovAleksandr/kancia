@@ -1,9 +1,12 @@
 import commentService from './comments.service.js';
+import { createCommentId } from '../../common/id/id.create.js';
 
 class CommentContriller {
   async create(req, res) {
     try {
-      const comment = await commentService.create(req.body);
+      req.body['_id'] = await createCommentId();
+
+      const comment = await commentService.create({ ...req.body });
 
       res.status(200).json(comment);
     } catch (err) {

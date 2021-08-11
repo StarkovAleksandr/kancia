@@ -5,7 +5,20 @@ import { validation } from './photos.validation.js';
 
 const router = new Router();
 
-router.post(`/photos`, (req) => validation(req.body), photosControllers.create);
+router.post(
+  `/photos`,
+  (req, res, next) => {
+    const result = validation(req.body);
+    if (result === true) {
+      next();
+    } else {
+      console.log('Invalid value');
+
+      res.status(400).send(result);
+    }
+  },
+  photosControllers.create
+);
 
 router.get(`/photos`, photosControllers.getAll);
 

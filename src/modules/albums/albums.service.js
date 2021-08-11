@@ -5,14 +5,13 @@ class AlbumService {
   async create(album) {
     const createdAlbum = await Album.create({
       ...album,
-      _id,
     });
 
     return createdAlbum;
   }
 
   async getAll() {
-    const albums = await Album.find().exec();
+    const albums = await Album.find().sort({ _id: 1 }).exec();
 
     return albums;
   }

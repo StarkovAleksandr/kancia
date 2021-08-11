@@ -1,9 +1,12 @@
 import todoService from './todos.service.js';
+import { createTodoId } from '../../common/id/id.create.js';
 
 class TodoController {
   async create(req, res) {
     try {
-      const todo = await todoService.create(req.body);
+      req.body['_id'] = await createTodoId();
+
+      const todo = await todoService.create({ ...req.body });
 
       res.status(200).json(todo);
     } catch (err) {

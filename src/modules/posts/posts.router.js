@@ -5,7 +5,20 @@ import { validation } from './posts.validation.js';
 
 const router = new Router();
 
-router.post(`/posts`, (req) => validation(req.body), postsControllers.create);
+router.post(
+  `/posts`,
+  (req, res, next) => {
+    const result = validation(req.body);
+    if (result === true) {
+      next();
+    } else {
+      console.log('Invalid value');
+
+      res.status(400).send(result);
+    }
+  },
+  postsControllers.create
+);
 
 router.get(`/posts`, postsControllers.getAll);
 

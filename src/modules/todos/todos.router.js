@@ -5,7 +5,20 @@ import { validation } from './todos.validation.js';
 
 const router = new Router();
 
-router.post(`/todos`, (req) => validation(req.body), todosControllers.create);
+router.post(
+  `/todos`,
+  (req, res, next) => {
+    const result = validation(req.body);
+    if (result === true) {
+      next();
+    } else {
+      console.log('Invalid value');
+
+      res.status(400).send(result);
+    }
+  },
+  todosControllers.create
+);
 
 router.get(`/todos`, todosControllers.getAll);
 
