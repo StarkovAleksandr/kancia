@@ -1,10 +1,8 @@
 import photoService from './photos.service.js';
-import { createPhotoId } from '../../common/id/id.create.js';
-
 class PhotoController {
   async create(req, res) {
     try {
-      req.body['_id'] = await createPhotoId();
+      req.body['_id'] = await photoService.createPhotoId();
 
       const photo = await photoService.create({ ...req.body });
 

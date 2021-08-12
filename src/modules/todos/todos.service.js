@@ -53,6 +53,10 @@ class TodoService {
       await this.delete(_id);
     }
   }
+
+  async createTodoId() {
+    return (await Todo.find().sort({ _id: -1 }).limit(1))[0]._id + 1;
+  }
 }
 
 export default new TodoService();

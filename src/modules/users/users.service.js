@@ -52,6 +52,10 @@ class UserService {
     await postService.deleteAllByUserId(id);
     await todoService.deleteAllByUserId(id);
   }
+
+  async createUserId() {
+    return (await User.find().sort({ _id: -1 }).limit(1))[0]._id + 1;
+  }
 }
 
 export default new UserService();

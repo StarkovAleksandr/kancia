@@ -9,6 +9,16 @@ async function startApp() {
   try {
     const app = express();
 
+    // app.use((req, res, next) => {
+    //   next();
+    //   console.log('Middleware 1');
+    // });
+
+    // app.use((req, res, next) => {
+    //   console.log('Middleware 2');
+    //   next();
+    // });
+
     app.use(express.json());
 
     routing(app);

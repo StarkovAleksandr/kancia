@@ -56,6 +56,10 @@ class PostService {
       await commentService.deleteAllByPostId(_id);
     }
   }
+
+  async createPostId() {
+    return (await Post.find().sort({ _id: -1 }).limit(1))[0]._id + 1;
+  }
 }
 
 export default new PostService();

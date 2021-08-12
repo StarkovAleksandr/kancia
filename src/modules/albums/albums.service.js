@@ -57,6 +57,10 @@ class AlbumService {
       await photoService.deleteAllByAlbumId(_id);
     }
   }
+
+  async createAlbumId() {
+    return (await Album.find().sort({ _id: -1 }).limit(1))[0]._id + 1;
+  }
 }
 
 export default new AlbumService();

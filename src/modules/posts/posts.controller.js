@@ -1,10 +1,8 @@
 import postService from './posts.service.js';
-import { createPostId } from '../../common/id/id.create.js';
-
 class PostController {
   async create(req, res) {
     try {
-      req.body['_id'] = await createPostId();
+      req.body['_id'] = await postService.createPostId();
 
       const post = await postService.create({ ...req.body });
 

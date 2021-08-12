@@ -57,6 +57,10 @@ class CommentService {
       await this.delete(_id);
     }
   }
+
+  async createCommentId() {
+    return (await Comment.find().sort({ _id: -1 }).limit(1))[0]._id + 1;
+  }
 }
 
 export default new CommentService();

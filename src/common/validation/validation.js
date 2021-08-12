@@ -1,7 +1,7 @@
-export const schemaValidate = (schema, obj) => {
+export const schemeValidate = (schema, obj) => {
   const err = Object.entries(schema).reduce((error, [key, value]) => {
     if (!Array.isArray(value)) {
-      schemaValidate(schema[key], obj[key]);
+      schemeValidate(schema[key], obj[key]);
     } else {
       for (let currentFunction of value) {
         const result = currentFunction(obj[key]);

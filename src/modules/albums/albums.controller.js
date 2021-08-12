@@ -1,15 +1,16 @@
 import albumService from './albums.service.js';
-import { createAlbumId } from '../../common/id/id.create.js';
 
 class AlbumController {
   async create(req, res) {
     try {
-      req.body['_id'] = await createAlbumId();
+      req.body['_id'] = await albumService.createAlbumId();
 
       const album = await albumService.create({ ...req.body });
 
       res.status(200).json(album);
     } catch (err) {
+      console.log(`Error = ${err}`);
+
       res.status(500).json(err);
     }
   }

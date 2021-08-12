@@ -1,28 +1,23 @@
 import Router from 'express';
 
 import commentsControllers from './comments.controller.js';
-import { validation } from './comments.validation.js';
+import { validationMiddleware } from '../../common/validation/validation.middleware.js';
+import { createOrUpdateCommentScheme } from './create-or-update-comment.scheme.js';
 
 const router = new Router();
 
 router.post(
   `/comments`,
-  (req, res, next) => {
-    const result = validation(req.body);
-    if (result === true) {
-      next();
-    } else {
-      console.log('Invalid value');
-
-      res.status(400).send(result);
-    }
-  },
+  validationMiddleware(createOrUpdateCommentScheme),
   commentsControllers.create
 );
-
 router.get(`/comments`, commentsControllers.getAll);
 router.get(`/comments/:id`, commentsControllers.getOne);
-router.put(`/comments/:id`, commentsControllers.update);
+router.put(
+  `/comments/:id`,
+  validationMiddleware(createOrUpdateCommentScheme),
+  commentsControllers.update
+);
 router.delete(`/comments/:id`, commentsControllers.delete);
 
 export default router;
