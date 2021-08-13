@@ -1,51 +1,22 @@
-export const schemeValidate = (schema, obj) => {
-  const err = Object.entries(schema).reduce((error, [key, value]) => {
+export const validationScheme = (scheme, obj) => {
+  const err = Object.entries(scheme).reduce((errors, [key, value]) => {
     if (!Array.isArray(value)) {
-      schemeValidate(schema[key], obj[key]);
+      const res = validationScheme(scheme[key], obj[key]);
+      if (Object.keys(res).length !== 0) {
+        errors[key] = res;
+      }
     } else {
       for (let currentFunction of value) {
         const result = currentFunction(obj[key]);
 
-        if (result === 'You should fill it') {
-          error = [...error, `"${key}": ${result}`];
-          break;
-        } else if (result === 'invalid value') {
-          error = [...error, `"${key}": ${result}`];
+        if (result) {
+          errors[key] = [...(errors[key] || []), result];
         }
       }
     }
 
-    return error;
-  }, []);
+    return errors;
+  }, {});
 
-  if (err.length === 0) {
-    return true;
-  } else {
-    console.log(`Error = ${err}`);
-    return err;
-  }
-};
-
-export const isStr = (value) => {
-  if (typeof value !== 'string') {
-    return 'invalid value';
-  }
-};
-
-export const isNum = (value) => {
-  if (typeof value !== 'number') {
-    return 'invalid value';
-  }
-};
-
-export const isBool = (value) => {
-  if (typeof value !== 'boolean') {
-    return 'invalid value';
-  }
-};
-
-export const isReq = (value) => {
-  if (typeof value === 'undefined') {
-    return 'You should fill it';
-  }
+  return err;
 };

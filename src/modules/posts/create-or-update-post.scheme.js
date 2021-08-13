@@ -1,4 +1,4 @@
-import { isReq, isStr } from '../../common/validation/validation.js';
+import { isReq, isStr } from '../../common/validation/rules.js';
 
 export const createOrUpdatePostScheme = {
   title: [isReq, isStr],

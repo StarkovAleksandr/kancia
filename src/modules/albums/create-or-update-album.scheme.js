@@ -1,3 +1,3 @@
-import { isStr, isReq } from '../../common/validation/validation.js';
+import { isStr, isReq } from '../../common/validation/rules.js';
 
 export const createOrUpdateAlbumScheme = { title: [isReq, isStr] };
