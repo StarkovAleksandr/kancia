@@ -3,7 +3,9 @@ import albumService from './albums.service.js';
 class AlbumController {
   async create(req, res) {
     try {
-      req.body['_id'] = await albumService.createAlbumId();
+      // req.body['_id'] = await albumService.createAlbumId();
+
+      console.log('Controller ready');
 
       const album = await albumService.create({ ...req.body });
 

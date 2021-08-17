@@ -8,4 +8,8 @@ const Comment = new mongoose.Schema({
   post: { type: mongoose.Schema.Types.Number, ref: 'Post' },
 });
 
+Comment.pre('save', () => {
+  console.log(`Create new comment`);
+});
+
 export default mongoose.model('Comment', Comment);

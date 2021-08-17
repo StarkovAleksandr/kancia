@@ -7,4 +7,8 @@ const Todo = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.Number, ref: 'User' },
 });
 
+Todo.pre('save', () => {
+  console.log(`Create new todo`);
+});
+
 export default mongoose.model('Todo', Todo);

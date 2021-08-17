@@ -7,4 +7,8 @@ const Post = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.Number, ref: 'User' },
 });
 
+Post.pre('save', () => {
+  console.log(`Create new post`);
+});
+
 export default mongoose.model('Post', Post);

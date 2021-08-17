@@ -1,9 +1,13 @@
 import mongoose from 'mongoose';
 
-const Album = new mongoose.Schema({
-  _id: { type: Number, required: true },
+import autoIncrementId from '../../common/auto-increment-id/autoIncrementId.js';
+
+const album = new mongoose.Schema({
+  _id: { type: Number },
   title: { type: String, required: true },
   user: { type: mongoose.Schema.Types.Number, ref: 'User' },
 });
 
-export default mongoose.model('Album', Album);
+autoIncrementId('Album', album);
+
+export default mongoose.model('Album', album);

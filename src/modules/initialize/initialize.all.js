@@ -17,6 +17,7 @@ class InitializerService {
     await this.#initializePosts();
     await this.#initializeTodos();
     await this.#initializeUsers();
+    await this.#initializeUsers();
   }
 
   async #initializeAlbums() {

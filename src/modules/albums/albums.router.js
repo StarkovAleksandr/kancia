@@ -11,13 +11,17 @@ router.post(
   validationMiddleware(createOrUpdateAlbumScheme),
   albumsControllers.create
 );
+
 router.get(`/albums`, albumsControllers.getAll);
+
 router.get(`/albums/:id`, albumsControllers.getOne);
+
 router.put(
   `/albums/:id`,
   validationMiddleware(createOrUpdateAlbumScheme),
   albumsControllers.update
 );
+
 router.delete(`/albums/:id`, albumsControllers.delete);
 
 export default router;

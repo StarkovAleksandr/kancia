@@ -3,6 +3,8 @@ import photoService from '../photos/photos.service.js';
 
 class AlbumService {
   async create(album) {
+    console.log('Service ready');
+
     const createdAlbum = await Album.create({
       ...album,
     });
@@ -32,11 +34,10 @@ class AlbumService {
     if (!album._id) {
       throw new Error('ID not request');
     }
-    const updatedAlbum = await Album.findByIdAndUpdate(album._id, album, {
+
+    return Album.findByIdAndUpdate(album._id, album, {
       new: true,
     });
-
-    return updatedAlbum;
   }
 
   async delete(id) {
@@ -58,9 +59,9 @@ class AlbumService {
     }
   }
 
-  async createAlbumId() {
-    return (await Album.find().sort({ _id: -1 }).limit(1))[0]._id + 1;
-  }
+  // async createAlbumId() {
+  //   return (await Album.find().sort({ _id: -1 }).limit(1))[0]._id + 1;
+  // }
 }
 
 export default new AlbumService();

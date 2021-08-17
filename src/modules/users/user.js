@@ -24,4 +24,8 @@ const User = new mongoose.Schema({
   },
 });
 
+User.pre('save', () => {
+  console.log(`Create new user`);
+});
+
 export default mongoose.model('User', User);

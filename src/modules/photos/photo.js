@@ -8,4 +8,8 @@ const Photo = new mongoose.Schema({
   album: { type: mongoose.Schema.Types.Number, ref: 'Album' },
 });
 
+Photo.pre('save', () => {
+  console.log(`Create new photo`);
+});
+
 export default mongoose.model('Photo', Photo);
