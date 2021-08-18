@@ -1,5 +1,4 @@
 import Album from './album.js';
-import photoService from '../photos/photos.service.js';
 
 class AlbumService {
   async create(album) {
@@ -24,16 +23,6 @@ class AlbumService {
 
   async delete(filter) {
     await Album.deleteOne(filter);
-  }
-
-  async deleteAllByUserId(id) {
-    const data = await Album.find({ user: id }).exec();
-
-    for (const { _id } of data) {
-      await this.delete(_id);
-
-      await photoService.deleteAllByAlbumId(_id);
-    }
   }
 }
 

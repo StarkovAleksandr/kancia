@@ -1,6 +1,9 @@
 import mongoose from 'mongoose';
 
 import { autoIncrementIndex } from '../last-id/auto-increment-index.js';
+import Album from '../albums/album.js';
+import Post from '../posts/post.js';
+import Todo from '../todos/todo.js';
 
 const user = new mongoose.Schema({
   _id: { type: Number },
@@ -27,5 +30,17 @@ const user = new mongoose.Schema({
 });
 
 autoIncrementIndex('User', user);
+
+user.pre('deleteOne', async function (next) {
+  const self = this;
+
+  await Album.deleteMany({ user: self._conditions._id });
+
+  await Post.deleteMany({ user: self._conditions._id });
+
+  await Todo.deleteMany({ user: self._conditions._id });
+
+  next();
+});
 
 export default mongoose.model('User', user);

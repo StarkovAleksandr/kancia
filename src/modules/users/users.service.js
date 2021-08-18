@@ -1,7 +1,4 @@
 import User from './user.js';
-import albumService from '../albums/albums.service.js';
-import postService from '../posts/posts.service.js';
-import todoService from '../todos/todos.service.js';
 
 class UserService {
   async create(user) {

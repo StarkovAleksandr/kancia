@@ -24,14 +24,6 @@ class PhotoService {
   async delete(filter) {
     await Photo.deleteOne(filter);
   }
-
-  async deleteAllByAlbumId(id) {
-    const data = await Photo.find({ album: id }).exec();
-
-    for (const { _id } of data) {
-      await this.delete(_id);
-    }
-  }
 }
 
 export default new PhotoService();

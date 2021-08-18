@@ -1,5 +1,4 @@
 import Post from './post.js';
-import commentService from '../comments/comments.service.js';
 
 class PostService {
   async create(post) {
@@ -22,16 +21,6 @@ class PostService {
 
   async delete(filter) {
     await Post.deleteOne(filter);
-  }
-
-  async deleteAllByUserId(id) {
-    const data = await Post.find({ user: id }).exec();
-
-    for (const { _id } of data) {
-      await this.delete(_id);
-
-      await commentService.deleteAllByPostId(_id);
-    }
   }
 }
 

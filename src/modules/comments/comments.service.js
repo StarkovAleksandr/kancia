@@ -24,14 +24,6 @@ class CommentService {
   async delete(filter) {
     await Comment.deleteOne(filter);
   }
-
-  async deleteAllByPostId(id) {
-    const data = await Comment.find({ post: id }).exec();
-
-    for (const { _id } of data) {
-      await this.delete(_id);
-    }
-  }
 }
 
 export default new CommentService();

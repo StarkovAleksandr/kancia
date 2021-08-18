@@ -24,14 +24,6 @@ class TodoService {
   async delete(filter) {
     await Todo.deleteOne(filter);
   }
-
-  async deleteAllByUserId(id) {
-    const data = await Todo.find({ user: id }).exec();
-
-    for (const { _id } of data) {
-      await this.delete(_id);
-    }
-  }
 }
 
 export default new TodoService();
