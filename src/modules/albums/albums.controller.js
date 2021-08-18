@@ -3,16 +3,10 @@ import albumService from './albums.service.js';
 class AlbumController {
   async create(req, res) {
     try {
-      // req.body['_id'] = await albumService.createAlbumId();
-
-      console.log('Controller ready');
-
       const album = await albumService.create({ ...req.body });
 
       res.status(200).json(album);
     } catch (err) {
-      console.log(`Error = ${err}`);
-
       res.status(500).json(err);
     }
   }
@@ -53,7 +47,6 @@ class AlbumController {
 
       return res.send(true);
     } catch (err) {
-      console.log(err);
       res.status(500).json(err);
     }
   }

@@ -2,26 +2,20 @@ import Todo from './todo.js';
 
 class TodoService {
   async create(todo) {
-    const createdTodo = await Todo.create({
+    return Todo.create({
       ...todo,
     });
-
-    return createdTodo;
   }
 
   async getAll() {
-    const todos = await Todo.find().sort({ _id: 1 }).exec();
-
-    return todos;
+    return Todo.find().sort({ _id: 1 }).exec();
   }
 
   async getOne(id) {
     if (!id) {
       throw new Error('ID not request');
     }
-    const todo = await Todo.findById(id).populate('user').exec();
-
-    return todo;
+    return Todo.findById(id).populate('user').exec();
   }
 
   async findOneById(id) {
@@ -32,11 +26,9 @@ class TodoService {
     if (!todo._id) {
       throw new Error('ID not request');
     }
-    const updatedTodo = await Todo.findByIdAndUpdate(todo._id, todo, {
+    return Todo.findByIdAndUpdate(todo._id, todo, {
       new: true,
     });
-
-    return updatedTodo;
   }
 
   async delete(id) {
@@ -52,10 +44,6 @@ class TodoService {
     for (const { _id } of data) {
       await this.delete(_id);
     }
-  }
-
-  async createTodoId() {
-    return (await Todo.find().sort({ _id: -1 }).limit(1))[0]._id + 1;
   }
 }
 

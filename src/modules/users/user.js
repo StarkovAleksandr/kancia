@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
 
-const User = new mongoose.Schema({
-  _id: { type: Number, required: true },
+import { autoIncrementIndex } from '../last-id/auto-increment-index.js';
+
+const user = new mongoose.Schema({
+  _id: { type: Number },
   name: { type: String, required: true },
   username: { type: String, required: true },
   email: { type: String, required: true },
@@ -24,8 +26,6 @@ const User = new mongoose.Schema({
   },
 });
 
-User.pre('save', () => {
-  console.log(`Create new user`);
-});
+autoIncrementIndex('User', user);
 
-export default mongoose.model('User', User);
+export default mongoose.model('User', user);

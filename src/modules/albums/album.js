@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import autoIncrementId from '../../common/auto-increment-id/autoIncrementId.js';
+import { autoIncrementIndex } from '../last-id/auto-increment-index.js';
 
 const album = new mongoose.Schema({
   _id: { type: Number },
@@ -8,6 +8,6 @@ const album = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.Number, ref: 'User' },
 });
 
-autoIncrementId('Album', album);
+autoIncrementIndex('Album', album);
 
 export default mongoose.model('Album', album);

@@ -1,14 +1,14 @@
 import mongoose from 'mongoose';
 
-const Todo = new mongoose.Schema({
-  _id: { type: Number, required: true },
+import { autoIncrementIndex } from '../last-id/auto-increment-index.js';
+
+const todo = new mongoose.Schema({
+  _id: { type: Number },
   title: { type: String, required: true },
   completed: { type: Boolean, required: true },
   user: { type: mongoose.Schema.Types.Number, ref: 'User' },
 });
 
-Todo.pre('save', () => {
-  console.log(`Create new todo`);
-});
+autoIncrementIndex('Todo', todo);
 
-export default mongoose.model('Todo', Todo);
+export default mongoose.model('Todo', todo);

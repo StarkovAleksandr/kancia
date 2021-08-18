@@ -5,26 +5,20 @@ import todoService from '../todos/todos.service.js';
 
 class UserService {
   async create(user) {
-    const createdUser = await User.create({
+    return User.create({
       ...user,
     });
-
-    return createdUser;
   }
 
   async getAll() {
-    const users = await User.find().sort({ _id: 1 }).exec();
-
-    return users;
+    return User.find().sort({ _id: 1 }).exec();
   }
 
   async getOne(id) {
     if (!id) {
       throw new Error('ID not request');
     }
-    const user = await User.findById(id).exec();
-
-    return user;
+    return User.findById(id).exec();
   }
 
   async findOneById(id) {
@@ -35,11 +29,9 @@ class UserService {
     if (!user._id) {
       throw new Error('ID not request');
     }
-    const updatedUser = await User.findByIdAndUpdate(user._id, user, {
+    return User.findByIdAndUpdate(user._id, user, {
       new: true,
     });
-
-    return updatedUser;
   }
 
   async delete(id) {
@@ -51,10 +43,6 @@ class UserService {
     await albumService.deleteAllByUserId(id);
     await postService.deleteAllByUserId(id);
     await todoService.deleteAllByUserId(id);
-  }
-
-  async createUserId() {
-    return (await User.find().sort({ _id: -1 }).limit(1))[0]._id + 1;
   }
 }
 

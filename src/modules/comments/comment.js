@@ -1,15 +1,15 @@
 import mongoose from 'mongoose';
 
-const Comment = new mongoose.Schema({
-  _id: { type: Number, required: true },
+import { autoIncrementIndex } from '../last-id/auto-increment-index.js';
+
+const comment = new mongoose.Schema({
+  _id: { type: Number },
   name: { type: String, required: true },
   email: { type: String, required: true },
   body: { type: String, required: true },
   post: { type: mongoose.Schema.Types.Number, ref: 'Post' },
 });
 
-Comment.pre('save', () => {
-  console.log(`Create new comment`);
-});
+autoIncrementIndex('Comment', comment);
 
-export default mongoose.model('Comment', Comment);
+export default mongoose.model('Comment', comment);

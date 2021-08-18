@@ -2,8 +2,6 @@ import userService from './users.service.js';
 class UserController {
   async create(req, res) {
     try {
-      req.body['_id'] = await userService.createUserId();
-
       const user = await userService.create({ ...req.body });
 
       res.status(200).json(user);

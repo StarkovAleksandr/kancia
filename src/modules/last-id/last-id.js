@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 
-const lastIds = new mongoose.Schema({
+const genInfo = new mongoose.Schema({
   modelName: { type: String, required: true },
   lastId: { type: Number, required: true },
 });
 
-export default mongoose.model('lastIds', lastIds);
+export default mongoose.model('genInfo', genInfo);

@@ -2,26 +2,20 @@ import Comment from './comment.js';
 
 class CommentService {
   async create(comment) {
-    const createdComment = await Comment.create({
+    return Comment.create({
       ...comment,
     });
-
-    return createdComment;
   }
 
   async getAll() {
-    const comments = await Comment.find().sort({ _id: 1 }).exec();
-
-    return comments;
+    return Comment.find().sort({ _id: 1 }).exec();
   }
 
   async getOne(id) {
     if (!id) {
       throw new Error('ID not request');
     }
-    const comment = await Comment.findById(id).populate('post').exec();
-
-    return comment;
+    return Comment.findById(id).populate('post').exec();
   }
 
   async findOneById(id) {
@@ -32,15 +26,9 @@ class CommentService {
     if (!comment._id) {
       throw new Error('ID not request');
     }
-    const updatedComment = await Comment.findByIdAndUpdate(
-      comment._id,
-      comment,
-      {
-        new: true,
-      }
-    );
-
-    return updatedComment;
+    return Comment.findByIdAndUpdate(comment._id, comment, {
+      new: true,
+    });
   }
 
   async delete(id) {
@@ -56,10 +44,6 @@ class CommentService {
     for (const { _id } of data) {
       await this.delete(_id);
     }
-  }
-
-  async createCommentId() {
-    return (await Comment.find().sort({ _id: -1 }).limit(1))[0]._id + 1;
   }
 }
 

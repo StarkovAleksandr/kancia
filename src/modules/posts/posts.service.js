@@ -3,24 +3,18 @@ import commentService from '../comments/comments.service.js';
 
 class PostService {
   async create(post) {
-    const createdPost = await Post.create({ ...post });
-
-    return createdPost;
+    return Post.create({ ...post });
   }
 
   async getAll() {
-    const posts = await Post.find().sort({ _id: 1 }).exec();
-
-    return posts;
+    return Post.find().sort({ _id: 1 }).exec();
   }
 
   async getOne(id) {
     if (!id) {
       throw new Error('ID not request');
     }
-    const post = await Post.findById(id).populate('user').exec();
-
-    return post;
+    return Post.findById(id).populate('user').exec();
   }
 
   async findOneById(id) {
@@ -31,11 +25,9 @@ class PostService {
     if (!post._id) {
       throw new Error('ID not request');
     }
-    const updatedPost = await Post.findByIdAndUpdate(post._id, post, {
+    return Post.findByIdAndUpdate(post._id, post, {
       new: true,
     });
-
-    return updatedPost;
   }
 
   async delete(id) {
@@ -55,10 +47,6 @@ class PostService {
 
       await commentService.deleteAllByPostId(_id);
     }
-  }
-
-  async createPostId() {
-    return (await Post.find().sort({ _id: -1 }).limit(1))[0]._id + 1;
   }
 }
 

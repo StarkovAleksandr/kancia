@@ -2,8 +2,6 @@ import photoService from './photos.service.js';
 class PhotoController {
   async create(req, res) {
     try {
-      req.body['_id'] = await photoService.createPhotoId();
-
       const photo = await photoService.create({ ...req.body });
 
       res.status(200).json(photo);
