@@ -9,38 +9,21 @@ class AlbumService {
   }
 
   async getAll() {
-    return Album.find().sort({ _id: 1 }).exec();
+    return Album.find().exec();
   }
 
   async getOne(id) {
-    if (!id) {
-      throw new Error('ID not request');
-    }
-
     return Album.findById(id).populate('user').exec();
   }
 
-  async findOneById(id) {
-    return Album.findOneById(id).exec();
-  }
-
-  async update(album) {
-    if (!album._id) {
-      throw new Error('ID not request');
-    }
-
-    return Album.findByIdAndUpdate(album._id, album, {
+  async update(id, update) {
+    return Album.findByIdAndUpdate(id, update, {
       new: true,
     });
   }
 
-  async delete(id) {
-    if (!id) {
-      throw new Error('ID not request');
-    }
-    await Album.findByIdAndDelete(id);
-
-    await photoService.deleteAllByAlbumId(id);
+  async delete(filter) {
+    await Album.deleteOne(filter);
   }
 
   async deleteAllByUserId(id) {

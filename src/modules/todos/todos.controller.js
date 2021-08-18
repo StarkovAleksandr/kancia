@@ -22,9 +22,12 @@ class TodoController {
 
   async getOne(req, res) {
     try {
-      const todo = await todoService.getOne(req.params.id);
+      const { id } = req.params;
+      const existTodo = await todoService.getOne(id);
+      if (!existTodo)
+        return res.status(404).send(`Todo by id #${id} is not defined`);
 
-      return res.json(todo);
+      return res.json(existTodo);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -32,7 +35,12 @@ class TodoController {
 
   async update(req, res) {
     try {
-      const updatedTodo = await todoService.update(req.body);
+      const { id } = req.params;
+      const existTodo = await todoService.getOne(id);
+      if (!existTodo)
+        return res.status(404).send(`Todo by id #${id} is not defined`);
+
+      const updatedTodo = await todoService.update(id, req.body);
 
       return res.json(updatedTodo);
     } catch (err) {
@@ -42,7 +50,12 @@ class TodoController {
 
   async delete(req, res) {
     try {
-      const todo = await todoService.delete(req.params.id);
+      const { id } = req.params;
+      const existTodo = await todoService.getOne(id);
+      if (!existTodo)
+        return res.status(404).send(`Todo by id #${id} is not defined`);
+
+      await todoService.delete(existTodo);
 
       return res.send(true);
     } catch (err) {

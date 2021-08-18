@@ -8,34 +8,21 @@ class TodoService {
   }
 
   async getAll() {
-    return Todo.find().sort({ _id: 1 }).exec();
+    return Todo.find().exec();
   }
 
   async getOne(id) {
-    if (!id) {
-      throw new Error('ID not request');
-    }
     return Todo.findById(id).populate('user').exec();
   }
 
-  async findOneById(id) {
-    return Todo.findOne({ id }).exec();
-  }
-
-  async update(todo) {
-    if (!todo._id) {
-      throw new Error('ID not request');
-    }
-    return Todo.findByIdAndUpdate(todo._id, todo, {
+  async update(id, update) {
+    return Todo.findByIdAndUpdate(id, update, {
       new: true,
     });
   }
 
-  async delete(id) {
-    if (!id) {
-      throw new Error('ID not request');
-    }
-    await Todo.findByIdAndDelete(id);
+  async delete(filter) {
+    await Todo.deleteOne(filter);
   }
 
   async deleteAllByUserId(id) {

@@ -23,9 +23,12 @@ class CommentContriller {
 
   async getOne(req, res) {
     try {
-      const comment = await commentService.getOne(req.params.id);
+      const { id } = req.params;
+      const existComment = await commentService.getOne(id);
+      if (!existComment)
+        return res.status(404).send(`Comment by id #${id} is not defined`);
 
-      return res.json(comment);
+      return res.json(existComment);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -33,7 +36,12 @@ class CommentContriller {
 
   async update(req, res) {
     try {
-      const updatedComment = await commentService.update(req.body);
+      const { id } = req.params;
+      const existComment = await commentService.getOne(id);
+      if (!existComment)
+        return res.status(404).send(`Comment by id #${id} is not defined`);
+
+      const updatedComment = await commentService.update(id, req.body);
 
       return res.json(updatedComment);
     } catch (err) {
@@ -43,7 +51,12 @@ class CommentContriller {
 
   async delete(req, res) {
     try {
-      const comment = await commentService.delete(req.params.id);
+      const { id } = req.params;
+      const existComment = await commentService.getOne(id);
+      if (!existComment)
+        return res.status(404).send(`Comment by id #${id} is not defined`);
+
+      await commentService.delete(existComment);
 
       return res.send(true);
     } catch (err) {

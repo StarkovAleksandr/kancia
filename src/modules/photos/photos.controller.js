@@ -22,9 +22,12 @@ class PhotoController {
 
   async getOne(req, res) {
     try {
-      const photo = await photoService.getOne(req.params.id);
+      const { id } = req.params;
+      const existPhoto = await photoService.getOne(id);
+      if (!existPhoto)
+        return res.status(404).send(`Photo by id #${id} is not defined`);
 
-      return res.json(photo);
+      return res.json(existPhoto);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -32,7 +35,12 @@ class PhotoController {
 
   async update(req, res) {
     try {
-      const updatedPhoto = await photoService.update(req.body);
+      const { id } = req.params;
+      const existPhoto = await photoService.getOne(id);
+      if (!existPhoto)
+        return res.status(404).send(`Photo by id #${id} is not defined`);
+
+      const updatedPhoto = await photoService.update(id, req.body);
 
       return res.json(updatedPhoto);
     } catch (err) {
@@ -42,7 +50,12 @@ class PhotoController {
 
   async delete(req, res) {
     try {
-      const photo = await photoService.delete(req.params.id);
+      const { id } = req.params;
+      const existPhoto = await photoService.getOne(id);
+      if (!existPhoto)
+        return res.status(404).send(`Photo by id #${id} is not defined`);
+
+      await photoService.delete(existPhoto);
 
       return res.send(true);
     } catch (err) {

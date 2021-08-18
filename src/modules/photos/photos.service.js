@@ -8,34 +8,21 @@ class PhotoService {
   }
 
   async getAll() {
-    return Photo.find().sort({ _id: 1 }).exec();
+    return Photo.find().exec();
   }
 
   async getOne(id) {
-    if (!id) {
-      throw new Error('ID not request');
-    }
     return Photo.findById(id).populate('album').exec();
   }
 
-  async findOneById(id) {
-    return Photo.findOne({ id }).exec();
-  }
-
-  async update(photo) {
-    if (!photo._id) {
-      throw new Error('ID not request');
-    }
-    return Photo.findByIdAndUpdate(photo._id, photo, {
+  async update(id, update) {
+    return Photo.findByIdAndUpdate(id, update, {
       new: true,
     });
   }
 
-  async delete(id) {
-    if (!id) {
-      throw new Error('ID not request');
-    }
-    await Photo.findByIdAndDelete(id);
+  async delete(filter) {
+    await Photo.deleteOne(filter);
   }
 
   async deleteAllByAlbumId(id) {

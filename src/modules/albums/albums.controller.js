@@ -23,9 +23,12 @@ class AlbumController {
 
   async getOne(req, res) {
     try {
-      const album = await albumService.getOne(req.params.id);
+      const { id } = req.params;
+      const existAlbum = await albumService.getOne(id);
+      if (!existAlbum)
+        return res.status(404).send(`Album by id #${id} is not defined`);
 
-      return res.json(album);
+      return res.json(existAlbum);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -33,7 +36,12 @@ class AlbumController {
 
   async update(req, res) {
     try {
-      const updatedAlbum = await albumService.update(req.body);
+      const { id } = req.params;
+      const existAlbum = await albumService.getOne(id);
+      if (!existAlbum)
+        return res.status(404).send(`Album by id #${id} is not defined`);
+
+      const updatedAlbum = await albumService.update(id, req.body);
 
       return res.json(updatedAlbum);
     } catch (err) {
@@ -43,7 +51,12 @@ class AlbumController {
 
   async delete(req, res) {
     try {
-      const album = await albumService.delete(req.params.id);
+      const { id } = req.params;
+      const existAlbum = await albumService.getOne(id);
+      if (!existAlbum)
+        return res.status(404).send(`Album by id #${id} is not defined`);
+
+      await albumService.delete(existAlbum);
 
       return res.send(true);
     } catch (err) {

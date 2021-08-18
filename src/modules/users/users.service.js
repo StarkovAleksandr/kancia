@@ -11,38 +11,21 @@ class UserService {
   }
 
   async getAll() {
-    return User.find().sort({ _id: 1 }).exec();
+    return User.find().exec();
   }
 
   async getOne(id) {
-    if (!id) {
-      throw new Error('ID not request');
-    }
     return User.findById(id).exec();
   }
 
-  async findOneById(id) {
-    return User.findOne({ id }).exec();
-  }
-
-  async update(user) {
-    if (!user._id) {
-      throw new Error('ID not request');
-    }
-    return User.findByIdAndUpdate(user._id, user, {
+  async update(id, update) {
+    return User.findByIdAndUpdate(id, update, {
       new: true,
     });
   }
 
-  async delete(id) {
-    if (!id) {
-      throw new Error('ID not request');
-    }
-    await User.findByIdAndDelete(id);
-
-    await albumService.deleteAllByUserId(id);
-    await postService.deleteAllByUserId(id);
-    await todoService.deleteAllByUserId(id);
+  async delete(filter) {
+    await User.deleteOne(filter);
   }
 }
 

@@ -22,9 +22,12 @@ class PostController {
 
   async getOne(req, res) {
     try {
-      const post = await postService.getOne(req.params.id);
+      const { id } = req.params;
+      const existPost = await postService.getOne(id);
+      if (!existPost)
+        return res.status(404).send(`Post by id #${id} is not defined`);
 
-      return res.json(post);
+      return res.json(existPost);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -32,7 +35,12 @@ class PostController {
 
   async update(req, res) {
     try {
-      const updatedPost = await postService.update(req.body);
+      const { id } = req.params;
+      const existPost = await postService.getOne(id);
+      if (!existPost)
+        return res.status(404).send(`Post by id #${id} is not defined`);
+
+      const updatedPost = await postService.update(id, req.body);
 
       return res.json(updatedPost);
     } catch (err) {
@@ -42,7 +50,12 @@ class PostController {
 
   async delete(req, res) {
     try {
-      const post = await postService.delete(req.params.id);
+      const { id } = req.params;
+      const existPost = await postService.getOne(id);
+      if (!existPost)
+        return res.status(404).send(`Post by id #${id} is not defined`);
+
+      await postService.delete(existPost);
 
       return res.send(true);
     } catch (err) {

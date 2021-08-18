@@ -22,9 +22,12 @@ class UserController {
 
   async getOne(req, res) {
     try {
-      const user = await userService.getOne(req.params.id);
+      const { id } = req.params;
+      const existUser = await userService.getOne(id);
+      if (!existUser)
+        return res.status(404).send(`User by id #${id} is not defined`);
 
-      return res.json(user);
+      return res.json(existUser);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -32,7 +35,12 @@ class UserController {
 
   async update(req, res) {
     try {
-      const updatedUser = await userService.update(req.body);
+      const { id } = req.params;
+      const existUser = await userService.getOne(id);
+      if (!existUser)
+        return res.status(404).send(`User by id #${id} is not defined`);
+
+      const updatedUser = await userService.update(id, req.body);
 
       return res.json(updatedUser);
     } catch (err) {
@@ -42,7 +50,12 @@ class UserController {
 
   async delete(req, res) {
     try {
-      const user = await userService.delete(req.params.id);
+      const { id } = req.params;
+      const existUser = await userService.getOne(id);
+      if (!existUser)
+        return res.status(404).send(`User by id #${id} is not defined`);
+
+      await userService.delete(existUser);
 
       return res.send(true);
     } catch (err) {

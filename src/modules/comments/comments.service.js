@@ -8,34 +8,21 @@ class CommentService {
   }
 
   async getAll() {
-    return Comment.find().sort({ _id: 1 }).exec();
+    return Comment.find().exec();
   }
 
   async getOne(id) {
-    if (!id) {
-      throw new Error('ID not request');
-    }
     return Comment.findById(id).populate('post').exec();
   }
 
-  async findOneById(id) {
-    return Comment.findOne({ id }).exec();
-  }
-
-  async update(comment) {
-    if (!comment._id) {
-      throw new Error('ID not request');
-    }
-    return Comment.findByIdAndUpdate(comment._id, comment, {
+  async update(id, update) {
+    return Comment.findByIdAndUpdate(id, update, {
       new: true,
     });
   }
 
-  async delete(id) {
-    if (!id) {
-      throw new Error('ID not request');
-    }
-    await Comment.findByIdAndDelete(id);
+  async delete(filter) {
+    await Comment.deleteOne(filter);
   }
 
   async deleteAllByPostId(id) {
