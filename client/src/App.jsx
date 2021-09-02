@@ -1,46 +1,42 @@
 import React from 'react';
 
-// import { TodoList } from './Todo/TodoList';
+import { TodoList } from './Todo/TodoList';
 import { Context } from './Сontext';
 import { Loader } from './Loader';
 import { Theme } from './ChangeTheme/ChangeTheme';
+import { useDispatch, useSelector } from 'react-redux';
 // import { AddTodo } from './Todo/AddTodo';
 
 export const App = () => {
-  const [todos, setTodos] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
+  const dispatch = useDispatch();
+  const todos = useSelector((state) => state.todos);
 
-  React.useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
-      .then((response) => response.json())
-      .then((todos) => {
-        setTimeout(() => {
-          setTodos(todos);
-          setLoading(false);
-        }, 2000);
-      });
-  }, []);
+  const getTodos = () => {
+    dispatch({ type: 'GET_TODOS' });
+  };
 
-  const toggleTodo = React.useCallback(
-    (id) => {
-      setTodos(
-        todos.map((todo) => {
-          if (todo.id === id) {
-            todo.completed = !todo.completed;
-          }
-          return todo;
-        })
-      );
-    },
-    [todos]
-  );
+  const addTodo = () => {
+    dispatch({ type: 'ADD_TODO' });
+  };
 
-  const removeTodo = React.useCallback(
-    (id) => {
-      setTodos(todos.filter((todo) => todo.id !== id));
-    },
-    [todos]
-  );
+  // const [todos, setTodos] = React.useState([]);
+  // const [loading, setLoading] = React.useState(true);
+
+  // React.useEffect(async () => {
+  //   await fetch('http://localhost:3001/todos')
+  //     .then((response) => response.json())
+  //     .then((todos) => {
+  //       setTodos(todos);
+  //       setLoading(false);
+  //     });
+  // }, []);
+
+  // const removeTodo = React.useCallback(
+  //   (id) => {
+  //     setTodos(todos.filter((todo) => todo.id !== id));
+  //   },
+  //   [todos]
+  // );
 
   // const addTodo = React.useCallback(
   //   (title) => {
@@ -58,24 +54,27 @@ export const App = () => {
   // );
 
   return (
-    <Context.Provider value={{ removeTodo }}>
-      <div className="wrapper">
-        <h1>React tutorial</h1>
+    // <Context.Provider value={{ removeTodo }}>
+    <div className={'app'}>
+      <h1>Todos</h1>
 
-        <Theme></Theme>
+      <button onClick={() => getTodos()}>Get Todos</button>
+      <button onClick={() => addTodo()}>Add Todo</button>
 
-        {/* <React.Suspense fallback={<h2>Loading...</h2>}>
+      <Theme></Theme>
+
+      {/* <React.Suspense fallback={<h2>Loading...</h2>}>
           <AddTodo onCreate={addTodo}></AddTodo>
         </React.Suspense> */}
 
-        {loading && <Loader></Loader>}
+      {loading && <Loader></Loader>}
 
-        {/* {todos.length ? (
-          <TodoList todos={todos} onToggle={toggleTodo}></TodoList>
+      {/* {todos.length ? (
+          <TodoList todos={todos}></TodoList>
         ) : loading ? null : (
           <h1>No Todos!</h1>
         )} */}
-      </div>
-    </Context.Provider>
+    </div>
+    // </Context.Provider>
   );
 };

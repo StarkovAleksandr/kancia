@@ -6,6 +6,7 @@ const lightTheme = {
   '--color-3': 'rgb(255, 255, 255)',
   '--color-4': 'rgba(85, 85, 85, 0.5)',
   '--color-5': 'rgb(229, 235, 240)',
+  '--color-6': 'rgb(225, 0, 0)',
 };
 
 const darkTheme = {
@@ -14,6 +15,7 @@ const darkTheme = {
   '--color-3': 'rgb(0, 0, 0)',
   '--color-4': 'rgba(0, 0, 0, 0.5)',
   '--color-5': 'rgb(110, 117, 129)',
+  '--color-6': 'rgb(225, 0, 0)',
 };
 
 export const Theme = () => {
