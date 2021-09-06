@@ -6,9 +6,15 @@ import { Loader } from './components/Loader/index';
 import { Theme } from './components/SwitchTheme/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTodo, getTodo } from './store/action/todos';
-// import { AddTodo } from './Todo/AddTodo';
+import { AddTodo } from './Todo/AddTodo';
 
 export const App = () => {
+  React.useEffect(() => {
+    fetch('http://localhost:3001/todos')
+      .then((res) => res.json())
+      .then((res) => console.log(res));
+  });
+
   const dispatch = useDispatch();
 
   const todo = useSelector((state) => state.todos);

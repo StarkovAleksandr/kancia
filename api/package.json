@@ -5,13 +5,14 @@
   "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "start": "node src/node.js",
+    "start": "node src/server.js",
     "dev": "nodemon src/server.js"
   },
   "author": "Aleksandr",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^5.13.5"
   },
