@@ -1,26 +1,20 @@
 import React from 'react';
 
-import { TodoList } from './Todo/TodoList';
-import { Context } from './Сontext';
-import { Loader } from './components/Loader/index';
-import { Theme } from './components/SwitchTheme/index';
+// import { TodoList } from './components/Todo/TodoList';
+// import { Loader } from './components/Loader/index';
+import { SwitchTheme } from './components/SwitchTheme/index';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTodo, getTodo } from './store/action/todos';
-import { AddTodo } from './Todo/AddTodo';
+import { addTodo, setTodo } from './store/actions/todos';
+import { fetchTodos } from './store/Thunks/todos';
+// import { AddTodo } from './components/Todo/AddTodo';
 
 export const App = () => {
-  React.useEffect(() => {
-    fetch('http://localhost:3001/todos')
-      .then((res) => res.json())
-      .then((res) => console.log(res));
-  });
-
   const dispatch = useDispatch();
 
-  const todo = useSelector((state) => state.todos);
+  const todos = useSelector((state) => state.todo.todos);
 
-  const get = () => {
-    dispatch(getTodo());
+  const set = () => {
+    dispatch(fetchTodos());
   };
 
   const add = () => {
@@ -31,22 +25,22 @@ export const App = () => {
     <div className="app">
       <h1>Todos</h1>
 
-      <button onClick={() => getTodos()}>Get Todos</button>
-      <button onClick={() => addTodo()}>Add Todo</button>
+      <button onClick={set}>Get Todos</button>
+      <button onClick={add}>Add Todo</button>
+      <SwitchTheme />
 
-      <Theme></Theme>
-
-      <React fallback={<h2>Loading...</h2>}>
-        <AddTodo onCreate={addTodo}></AddTodo>
-      </React>
-
-      {loading && <Loader></Loader>}
-
-      {todos.length ? (
-        <TodoList todos={todos}></TodoList>
-      ) : loading ? null : (
-        <h1>No Todos!</h1>
+      {todos !== null ? (
+        <div>
+          {todos.map((todo) => (
+            <ul style={{ fontSize: '3rem' }}>{JSON.stringify(todo)}</ul>
+          ))}
+        </div>
+      ) : (
+        <p>No todos</p>
       )}
+
+      {/* <AddTodo onCreate={addTodo}></AddTodo> */}
+      {/* <TodoList todos={todos} /> */}
     </div>
   );
 };

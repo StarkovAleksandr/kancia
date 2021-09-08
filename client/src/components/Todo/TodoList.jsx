@@ -12,11 +12,12 @@ const styles = {
 
 export const TodoList = (props) => (
   <ul style={styles.ul}>
+    {console.log(props.todos)}
     {props.todos.map((todo, index) => {
       return (
         <TodoItem
           todo={todo}
-          key={todo.id}
+          key={todo._id}
           index={index}
           onChange={props.onToggle}
         ></TodoItem>

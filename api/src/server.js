@@ -10,7 +10,7 @@ async function startApp() {
   try {
     const app = express();
 
-    app.use(cors());
+    app.use(cors('http://localhost:3030'));
     app.use(express.json());
 
     routing(app);

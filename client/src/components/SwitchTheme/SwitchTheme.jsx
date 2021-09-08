@@ -18,7 +18,7 @@ const darkTheme = {
   '--color-6': 'rgb(225, 0, 0)',
 };
 
-export const Theme = () => {
+export const SwitchTheme = () => {
   const [isLight, setLight] = React.useState(false);
 
   const syncTheme = React.useCallback((light) => {
