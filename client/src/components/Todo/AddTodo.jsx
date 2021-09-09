@@ -17,17 +17,14 @@ const useInputValue = (defaultValue = '') => {
 export const AddTodo = ({ onCreate }) => {
   const input = useInputValue('');
 
-  const submitHandler = React.useCallback(
-    (event) => {
-      event.preventDefault();
+  const submitHandler = React.useCallback((event) => {
+    event.preventDefault();
 
-      if (input.value().trim()) {
-        onCreate(input.value());
-        input.clear();
-      }
-    },
-    [event]
-  );
+    if (input.value().trim()) {
+      onCreate(input.value());
+      input.clear();
+    }
+  }, []);
 
   return (
     <form style={{ marginBottom: '1rem' }} onSubmit={submitHandler}>

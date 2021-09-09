@@ -16,32 +16,19 @@ const styles = {
   },
 };
 
-export const TodoItem = ({ todo, index, onChange }) => {
-  const classes = [];
-
-  if (todo.completed) {
-    classes.push('done');
-  }
-
-  return (
-    <li style={styles.li}>
-      <span className={classes.join(' ')}>
-        <input
-          type="checkbox"
-          checked={todo.completed}
-          style={styles.input}
-          onChange={() => onChange(todo.id)}
-        />
-        <strong>{index + 1}</strong>
-        &nbsp;
-        {todo.title}
-      </span>
-    </li>
-  );
-};
+export const TodoItem = ({ todo, index }) => (
+  <li style={styles.li}>
+    <span className={`${todo.completed && 'done'}`}>
+      <input type="checkbox" style={styles.input} />
+      <strong>{index + 1}</strong>
+      &nbsp;
+      {todo.title}
+    </span>
+  </li>
+);
 
 TodoItem.propTypes = {
   todo: PropTypes.object.isRequired,
   index: PropTypes.number,
-  onChange: PropTypes.func.isRequired,
+  count: PropTypes.string,
 };
