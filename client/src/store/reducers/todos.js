@@ -3,7 +3,7 @@ import { ADD_TODO, SET_TODOS, SET_LOADING, SET_ERROR } from '../actionTypes';
 const defaultState = {
   todos: null,
   loading: false,
-  error: null,
+  error: false,
 };
 
 export const reducer = (state = defaultState, action) => {
