@@ -143,3 +143,10 @@ p {
   left: 50%;
   margin: 0.5rem;
 }
+
+.error {
+  position: absolute;
+  top: 30%;
+  left: 35%;
+  margin: 0.5rem;
+}
