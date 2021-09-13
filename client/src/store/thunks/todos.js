@@ -6,7 +6,7 @@ export const fetchTodos = () => async (dispatch) => {
   dispatch(setLoading(true));
   dispatch(setTodo(null));
 
-  const response = await fetch('http://localhost:8080/tod');
+  const response = await fetch('http://localhost:8080/todos');
 
   if (!response.ok) {
     dispatch(setLoading(false));
