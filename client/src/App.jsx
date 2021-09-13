@@ -9,6 +9,10 @@ import { addTodo } from './store/actions/todos';
 import { fetchTodos } from './store/thunks/todos';
 
 export const App = () => {
+  React.useEffect(() => {
+    dispatch(fetchTodos());
+  }, []);
+
   const dispatch = useDispatch();
 
   const todos = useSelector((state) => state.todo.todos);
@@ -26,7 +30,6 @@ export const App = () => {
   return (
     <div className="wrapper">
       <h1>Todo CRUD</h1>
-
       <button onClick={set}>Refresh Todos</button>
       <button onClick={add}>Add Todo</button>
 
@@ -35,7 +38,6 @@ export const App = () => {
       {loading && <Loader />}
       {todos !== null && <TodoList todos={todos} />}
       {error && <ErrorMessage />}
-
       {/* <AddTodo onCreate={addTodo}></AddTodo> */}
     </div>
   );
